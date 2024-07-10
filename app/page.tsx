@@ -44,7 +44,7 @@ export default function Home() {
       <Button
         asChild
         variant="outline"
-        className="rounded-full size-14 fixed bottom-4 left-1/2"
+        className="rounded-full size-14 fixed bottom-4 left-1/2 -translate-x-1/2"
       >
         <Link href="/new-entry">
           <Plus size={32} />
