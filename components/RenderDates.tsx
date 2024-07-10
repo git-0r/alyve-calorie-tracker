@@ -117,7 +117,7 @@ const RenderDates = () => {
             >
               <p
                 className={cn(
-                  "flex flex-col gap-2 items-center text-center rounded-3xl select-none p-2 cursor-pointer hover:bg-slate-100",
+                  "flex flex-col gap-2 items-center text-center rounded-3xl select-none p-2 text-sm sm:text-base cursor-pointer hover:bg-slate-100",
                   isEqual(activeDate, date.toDateString())
                     ? "text-blue-500 border hover:bg-white"
                     : ""
