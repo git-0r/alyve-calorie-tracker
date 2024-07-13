@@ -46,7 +46,7 @@ export default function Home() {
         variant="outline"
         className="rounded-full size-14 fixed bottom-4 left-1/2 -translate-x-1/2"
       >
-        <Link href="/new-entry">
+        <Link href={`/${activeDate}?type=breakfast`}>
           <Plus size={32} />
         </Link>
       </Button>

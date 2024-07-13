@@ -9,7 +9,7 @@ export default function MealCard({ type }: { type: MealType }) {
   const activeDate = useDateStore((state) => state.date);
 
   return (
-    <Card onClick={() => router.push("/new-entry")}>
+    <Card onClick={() => router.push(`/${activeDate}?type=${type}`)}>
       <CardHeader>
         <CardTitle className="text-2xl">{Meal[type]}</CardTitle>
       </CardHeader>

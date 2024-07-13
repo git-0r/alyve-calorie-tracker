@@ -1,21 +1,43 @@
 "use client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import RenderDates from "@/components/RenderDates";
 import Link from "next/link";
 import FoodEntryCard from "@/components/FoodEntryCard";
 import Search from "@/components/Search";
+import { useDateStore, useTrackerStore } from "@/store";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export default function NewEntry() {
-  const [activeTab, setActiveTab] = useState("breakfast");
-  const handleTabChange = (value: string) => setActiveTab(value);
+export default function NewEntry({ params }: { params: { date: string } }) {
+  const setDate = useDateStore((state) => state.setDate);
+  const router = useRouter();
+  const pathname = usePathname();
+  const handleTabChange = (value: string) => {
+    router.push(pathname + "?" + createQueryString("type", value));
+  };
+  const searchParams = useSearchParams();
+  const mealType = searchParams.get("type");
+
+  useEffect(() => {
+    setDate(params.date.split("%20").join(" "));
+  }, [params.date]);
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
 
   return (
     <main>
       <RenderDates />
       <Tabs
-        defaultValue={activeTab}
+        defaultValue={mealType || "breakfast"}
         className="w-full"
         onValueChange={handleTabChange}
       >
@@ -30,7 +52,7 @@ export default function NewEntry() {
             Dinner
           </TabsTrigger>
         </TabsList>
-        <Search activeTab={activeTab} />
+        <Search activeTab={mealType || "breakfast"} />
         <TabsContent value="breakfast">
           <FoodEntryCard mealType="breakfast" />
         </TabsContent>

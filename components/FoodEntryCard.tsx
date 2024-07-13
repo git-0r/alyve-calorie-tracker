@@ -15,7 +15,6 @@ export default function FoodEntryCard({ mealType }: { mealType: MealType }) {
   const trackerStore = useTrackerStore((state) => state.data);
   const deleteFoodEntry = useTrackerStore((state) => state.deleteFoodEntry);
   const activeDate = useDateStore((state) => state.date);
-
   const mealData = trackerStore[activeDate]?.filter(
     (item) => item.type === mealType
   );
@@ -23,15 +22,15 @@ export default function FoodEntryCard({ mealType }: { mealType: MealType }) {
   if (!mealData?.length) {
     return <p>No items in the list!</p>;
   }
-
-  return mealData?.map((item) => (
-    <Card key={item.food.foodId} className="my-4 relative">
+  return mealData?.map((item, index) => (
+    <Card key={item.food.foodId + index} className="my-4 relative">
       <X
         size={24}
         className="absolute top-2 right-2 cursor-pointer"
-        onClick={() =>
-          deleteFoodEntry("breakfast", item.food.foodId, activeDate)
-        }
+        onClick={() => {
+          console.log(item.food.foodId);
+          deleteFoodEntry(mealType, item.food.foodId, activeDate);
+        }}
       />
       <CardHeader className="flex flex-row gap-4 items-center">
         <Avatar className="rounded-md">

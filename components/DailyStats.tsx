@@ -13,7 +13,7 @@ export default function DailyStats() {
       0
     ) ?? 0;
   const targetPercent = ((totalCalorieCount / 2500) * 100).toFixed(0);
-  const getNutruientInfo = (nutrient: "protein" | "fat" | "carbs") => {
+  const getNutrientInfo = (nutrient: "protein" | "fat" | "carbs") => {
     const totalNutrient =
       trackerData[activeDate]
         ?.reduce(
@@ -24,16 +24,16 @@ export default function DailyStats() {
     return Number(totalNutrient);
   };
 
-  const totalProtein = getNutruientInfo("protein") / 10;
-  const totalFat = getNutruientInfo("fat") / 10;
-  const totalCarbs = getNutruientInfo("carbs") / 10;
+  const totalProtein = getNutrientInfo("protein") / 10;
+  const totalFat = getNutrientInfo("fat") / 10;
+  const totalCarbs = getNutrientInfo("carbs") / 10;
 
   return (
     <Card>
       <CardContent className="p-6">
         <div className="flex items-center flex-wrap justify-center gap-4 sm:justify-between sm:gap-0">
           <div className="sm:basis-1/2 basis-full text-center flex items-center justify-center">
-            <ProgressBar progress={Number(targetPercent)} size={175} />
+            <ProgressBar progress={Math.min(100, +targetPercent)} size={175} />
           </div>
           <div className="flex flex-col sm:basis-1/2 basis-full space-y-2">
             <div>
